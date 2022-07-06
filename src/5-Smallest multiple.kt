@@ -2,7 +2,7 @@ import helpers.isMultipleOf
 
 fun main() {
 
-    var smallestMultiple: Int = 20 * 19
+    var smallestMultiple: Int = 2 * 3 * 5 * 7 * 11 * 13 * 17 * 19
     while (true) {
 
         var satisfiesEveryCase: Boolean = true
@@ -19,10 +19,10 @@ fun main() {
             return;
         }
 
-        smallestMultiple = smallestMultiple + (20 * 19)
+        smallestMultiple = smallestMultiple + (2 * 3 * 5 * 7 * 11 * 13 * 17 * 19)
     }
 
     println("Respuesta =  ${smallestMultiple}")
-
+    //respuesta = 232792560
 
 }

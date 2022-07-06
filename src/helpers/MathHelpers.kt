@@ -1,7 +1,6 @@
 package helpers
 
-val foundFibNumbers = LinkedHashMap<Int, Int>();
-
+import java.math.BigInteger
 
 inline fun Int.isMultipleOf(x: Int): Boolean {
     if (x == 0) return true
@@ -14,9 +13,24 @@ inline fun Long.isMultipleOf(x: Long): Boolean {
 }
 
 inline fun Long.isPrime(): Boolean {
-    return getFactors(this).size == 2
+
+    if (this == 1L) {
+        return false
+    }
+
+    var stopVariable: Long = this - 1
+    var i: Long = 2
+    while (i < stopVariable) {
+        if (i.isMultipleOf(this)) {
+            return false
+        }
+        stopVariable = (this / i)
+        i++
+    }
+    return true
 }
 
+val foundFibNumbers = LinkedHashMap<Int, Int>();
 fun getFibonacciNumber(x: Int): Int {
 
     if (x == 0)
@@ -51,4 +65,53 @@ fun getFactors(x: Long): MutableList<Long> {
     }
     return output
 }
+
+val foundTriangleNumbers = LinkedHashMap<Int, Int>();
+fun getTriangleNumber(x: Int): Int {
+
+    if (x == 1)
+        return 1
+
+
+    return foundTriangleNumbers.getOrPut(x) { getTriangleNumber(x - 1) + x }
+}
+
+val foundGeneratedBinaryPermute = LinkedHashMap<Int, MutableList<String>>();
+
+fun generateBinaryBalancedPermute(size: Int): MutableList<String> {
+    var output: MutableList<String> = mutableListOf()
+    if (!foundGeneratedBinaryPermute.containsKey(size)) {
+        if (size == 1) {
+            output.add("1")
+            output.add("0")
+            println("Adding ${output}")
+            foundGeneratedBinaryPermute[size] = output
+            return output
+        }
+
+        for (actual in generateBinaryBalancedPermute(size - 1)) {
+            output.add("1" + actual)
+        }
+
+        for (actual in generateBinaryBalancedPermute(size - 1)) {
+            output.add("0" + actual)
+        }
+        println("Adding ${output}")
+        foundGeneratedBinaryPermute[size] = output
+        return output
+    } else {
+        return foundGeneratedBinaryPermute[size]!!
+    }
+
+}
+
+inline fun Long.factorial(): BigInteger {
+    var factorial: BigInteger = BigInteger.ONE
+    for (i in 1..this) {
+        factorial *= BigInteger.valueOf(i)
+    }
+    return factorial
+}
+
+
 

@@ -15,5 +15,5 @@ fun main() {
     squareOfSums = sum * sum
 
     println("Respuesta = ${squareOfSums - sumOfSquares}")
-
+    //respuesta = 25164150
 }
